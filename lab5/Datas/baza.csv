@@ -1,0 +1,4 @@
+id,name,coordinate.x,coordinate.y,creationDate,studentsCount,formOfEducation,semesterEnum,groupAdmin.name,groupAdmin.weight,groupAdmin.eyeColor,groupAdmin.hairColor,groupAdmin.nationality
+"1","p3134418","89","58","06.04.2023 16:44:03","20","EVENING_CLASSES","FIFTH","Andrey","180.0","BLACK","BLUE","FRANCE"
+"2","p3134461","74","102","06.04.2023 16:44:03","20","FULL_TIME_EDUCATION","FIFTH","Andrey","180.0","BLACK","BLUE","FRANCE"
+"3","3116","34","56","09.04.2023 11:51:37","234","FULL_TIME_EDUCATION","SIXTH","Ilyos","180.0","RED","BLUE","JAPAN"

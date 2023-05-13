@@ -200,7 +200,6 @@ public class AddCommand{
             StudyGroup stdTmp = new StudyGroup(name, cr, studentCount, form,sm, groepAdmiiin);
             return new Res(stdTmp.toStringCSV(), true);
         }catch (Exception e){
-            Static.txt("Ошибка добавления!");
             return new Res("Ошибка добавления!", false);
         }
     }

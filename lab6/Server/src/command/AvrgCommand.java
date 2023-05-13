@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 import statics.Static;
 
@@ -11,18 +12,19 @@ public class AvrgCommand extends AbsCommand{
     }
 
     @Override
-    public boolean doo(String args, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
         Float ans = 0f;
+        String allRes = "";
         for(StudyGroup s: mySet){
             ans = ans + s.getStudentsCount();
         }
         try {
             ans = ans / mySet.size();
-            Static.txt(ans.toString());
+            allRes = allRes + ans.toString() + "\n";
         }catch (Exception e){
-            Static.txt("Коллекция пуста!");
+            allRes = allRes + "Коллекция пуста!" + "\n";
         }
-        return true;
+        return new Res(allRes, true);
     }
 
     @Override

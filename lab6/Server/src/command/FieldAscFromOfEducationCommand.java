@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 import statics.Static;
 
@@ -11,8 +12,9 @@ public class FieldAscFromOfEducationCommand extends AbsCommand{
     }
 
     @Override
-    public boolean doo(String args, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
         TreeMap<String, String> mpTmp = new TreeMap<>();
+        String allRes = "";
 
         List<String> s = new ArrayList<>();
         for(StudyGroup ss: mySet){
@@ -28,9 +30,9 @@ public class FieldAscFromOfEducationCommand extends AbsCommand{
         }
 
         for(String t: mpTmp.keySet()){
-            Static.txt(t + " " + mpTmp.get(t));
+            allRes = allRes + t + " " + mpTmp.get(t) + "\n";
         }
-        return true;
+        return new Res(allRes, true);
     }
 
     @Override

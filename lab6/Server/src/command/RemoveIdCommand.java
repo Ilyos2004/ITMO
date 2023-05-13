@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 import statics.Static;
 
@@ -11,18 +12,16 @@ public class RemoveIdCommand extends AbsCommand{
     }
 
     @Override
-    public boolean doo(String args, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
         String[] idS = args.split(" ");
         int id = Integer.parseInt(idS[1]);
         for(StudyGroup std: mySet){
             if(std.getId() == id){
                 mySet.remove(std);
-                Static.txt("Объект удалено!");
-                return true;
+                return new Res("Объект удалено!\n", true);
             }
         }
-        Static.txt("Нету такого объекта!");
-        return  false;
+        return new Res("Нету такого объекта!\n", true);
     }
 
     @Override

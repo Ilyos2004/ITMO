@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 import statics.Static;
 
@@ -11,11 +12,12 @@ public class UniqueSemPrintCommand extends AbsCommand{
     }
 
     @Override
-    public boolean doo(String args, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
+        String allRes = "";
         for(StudyGroup std: mySet){
-            Static.txt(std.getName() + " " + std.getSemesterEnum().name());
+            allRes = allRes + (std.getName() + " " + std.getSemesterEnum().name()) + "\n";
         }
-        return true;
+        return new Res(allRes, true);
     }
 
     @Override

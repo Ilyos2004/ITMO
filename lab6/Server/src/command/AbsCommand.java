@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 
 import java.util.LinkedHashSet;
@@ -12,8 +13,9 @@ public class AbsCommand implements Command {
     }
 
     @Override
-    public boolean doo(String args, LinkedHashSet<StudyGroup> mySet) {
-        return false;
+    public Res doo(String args, LinkedHashSet<StudyGroup> mySet) {
+        Res res = null;
+        return res;
     }
 
     @Override

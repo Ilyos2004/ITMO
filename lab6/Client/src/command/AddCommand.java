@@ -4,7 +4,6 @@ import ansAndRes.Res;
 import classes.Coordinates;
 import classes.Person;
 import classes.StudyGroup;
-import datas.DatasParse;
 import enums.Color;
 import enums.Country;
 import enums.FormOfEducation;
@@ -14,21 +13,10 @@ import statics.Static;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 
-public class AddCommand extends AbsCommand{
+public class AddCommand{
 
-    public AddCommand(String name) {
-        super(name);
-    }
-
-    @Override
-    public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(){
         Res res = null;
-        String dataCSV = "";
-        DatasParse dt = new DatasParse();
-        for(int i = 3; i < args.length(); i++){
-            dataCSV = dataCSV + args.charAt(i);
-        }
-        dt.csvReader()
         String name = null;
         int x = 0;
         int y = 0;
@@ -210,16 +198,13 @@ public class AddCommand extends AbsCommand{
             Coordinates cr = new Coordinates(x, y);
             Person groepAdmiiin = new Person(perName, weight, eyeColor, hairColor, nationality);
             StudyGroup stdTmp = new StudyGroup(name, cr, studentCount, form,sm, groepAdmiiin);
-            mySet.add(stdTmp);
-            Static.txt("Новый объект успешно добавлено!");
-            return res;
+            return new Res(stdTmp.toStringCSV(), true);
         }catch (Exception e){
             Static.txt("Ошибка добавления!");
-            return res;
+            return new Res("Ошибка добавления!", false);
         }
     }
 
-    @Override
     public String des(){
         return "add {element} : добавить новый элемент в коллекцию";
     }

@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 import statics.Static;
 
@@ -11,11 +12,12 @@ public class ShowCommand extends AbsCommand{
     }
 
     @Override
-    public boolean doo(String s, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(String s, LinkedHashSet<StudyGroup> mySet){
+        String allRes = "";
         for(StudyGroup std: mySet){
-            Static.txt(std.toString());
+            allRes = allRes + std.toString() + "\n";
         }
-        return true;
+        return new Res(allRes, true);
     }
 
     @Override

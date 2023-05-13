@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 import statics.Static;
 
@@ -11,10 +12,9 @@ public class ClearCommand extends AbsCommand{
     }
 
     @Override
-    public boolean doo(String s, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(String s, LinkedHashSet<StudyGroup> mySet){
         mySet.clear();
-        Static.txt("Коллекция успешно очищено!");
-        return true;
+        return new Res("Коллекция успешно очищено!\n", true);
     }
 
     @Override

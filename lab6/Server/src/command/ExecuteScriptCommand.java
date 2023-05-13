@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 import statics.Static;
 
@@ -14,30 +15,31 @@ public class ExecuteScriptCommand extends AbsCommand{
     }
 
     @Override
-    public boolean doo(String args, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
         String[] idS = args.split(" ");
         String filename = idS[1];
         CommandMang cmd = new CommandMang();
+        Res res = null;
 
         try {
             Scanner sc = new Scanner(new File("Scripts/" + filename));
             while(sc.hasNextLine()){
                 String line = sc.nextLine();
                 if(line.equals("exit")){
-                    return true;
+                    return res;
                 }else {
                     try {
-                        cmd.mng(line, mySet);
+                        res = cmd.mng(line, mySet);
                         Static.history.add(line.split(" ")[0]);
                     } catch (Exception e) {
                         continue;
                     }
                 }
             }
-            return true;
+            return res;
         } catch (FileNotFoundException e) {
             Static.txt("Ошибка скрипт файла!");
-            return false;
+            return res;
         }
     }
 

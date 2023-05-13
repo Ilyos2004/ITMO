@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 import statics.Static;
 
@@ -11,11 +12,12 @@ public class HelpCommand extends AbsCommand {
     }
 
     @Override
-    public boolean doo(String args, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
+        String allRes = "";
         for(Command c: Static.listOfCommands.values()){
-            Static.txt(c.des());
+            allRes = allRes + c.des() + "\n";
         }
-        return true;
+        return new Res(allRes, true);
     }
 
     @Override

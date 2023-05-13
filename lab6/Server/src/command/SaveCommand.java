@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 import datas.CsvSave;
 import statics.Static;
@@ -12,15 +13,16 @@ public class SaveCommand extends AbsCommand{
     }
 
     @Override
-    public boolean doo(String s, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(String s, LinkedHashSet<StudyGroup> mySet){
         CsvSave cv = new CsvSave();
+        String allRes = "";
         try {
             cv.saveCsv(mySet);
-            Static.txt("Коллекция успешно сохранено!");
+            allRes = allRes + "Коллекция успешно сохранено!\n";
         }catch (Exception e){
-            Static.txt("Ошибка сохранения!");
+            allRes = allRes + "Ошибка сохранения!\n";
         }
-        return true;
+        return new Res(allRes, true);
     }
 
     @Override

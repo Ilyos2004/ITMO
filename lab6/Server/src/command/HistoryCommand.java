@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 import statics.Static;
 
@@ -11,16 +12,16 @@ public class HistoryCommand extends AbsCommand{
     }
 
     @Override
-    public boolean doo(String args, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
+        String allRes = "";
         if(Static.history.size() >= 12) {
-            for (int i = Static.history.size() - 12; i <= Static.history.size(); i++) {
-                Static.txt(Static.history.get(i));
+            for (int i = Static.history.size() - 12; i < Static.history.size(); i++) {
+                allRes = allRes + (Static.history.get(i)) + "\n";
             }
-            return true;
+            return new Res(allRes, true);
         }
         else{
-            Static.txt("История команд меньше 12!");
-            return false;
+            return new Res("История команд меньше 12!\n", true);
         }
     }
 

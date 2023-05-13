@@ -1,5 +1,6 @@
 package command;
 
+import ansAndRes.Res;
 import classes.Coordinates;
 import classes.Person;
 import classes.StudyGroup;
@@ -18,7 +19,8 @@ public class UpdateByIdCommand extends AbsCommand{
     }
 
     @Override
-    public boolean doo(String args, LinkedHashSet<StudyGroup> mySet){
+    public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
+        Res res = null;
         String name = null;
         int x = 0;
         int y = 0;
@@ -205,14 +207,14 @@ public class UpdateByIdCommand extends AbsCommand{
                     }
                 }
                 Static.txt("Объект успешно изменено!");
-                return true;
+                return res;
             } catch (Exception e) {
                 Static.txt("Ошибка добавления!");
-                return false;
+                return res;
             }
         }else{
             Static.txt("Такой элемент не существует!");
-            return false;
+            return res;
         }
     }
 

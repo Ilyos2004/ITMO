@@ -24,7 +24,7 @@ public class Static {
         listOfCommands.put("info", new InfoCommand("info"));
         listOfCommands.put("show", new ShowCommand("show"));
         listOfCommands.put("clear", new ClearCommand("clear"));
-        listOfCommands.put("save", new SaveCommand("save"));
+        //listOfCommands.put("save", new SaveCommand("save"));
         listOfCommands.put("average_of_students_count", new AvrgCommand("average_of_students_count"));
         listOfCommands.put("print_unique_semester_enum", new UniqueSemPrintCommand("print_unique_semester_enum"));
         listOfCommands.put("print_field_ascending_form_of_education", new FieldAscFromOfEducationCommand("print_field_ascending_form_of_education"));

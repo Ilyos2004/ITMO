@@ -1,11 +1,12 @@
 package command;
 
+import ansAndRes.Res;
 import classes.StudyGroup;
 
 import java.util.LinkedHashSet;
 
 public interface Command {
-    boolean doo(String args, LinkedHashSet<StudyGroup> mySet);
+    Res doo(String args, LinkedHashSet<StudyGroup> mySet);
     String des();
     String getName();
 }

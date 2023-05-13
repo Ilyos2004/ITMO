@@ -1,2 +1,0 @@
-# ITMO
-ITMOs' labs

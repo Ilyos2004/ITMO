@@ -7,15 +7,20 @@ import command.UpdateByIdCommand;
 
 import java.io.*;
 import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
 import java.util.Scanner;
 
 public class ClientMng {
 
     private static int port = 1100;
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 
-        DatagramSocket clientSocket = new DatagramSocket();
-        InetAddress IPAddress = InetAddress.getByName("localhost");
+        DatagramChannel channel = DatagramChannel.open();
+        channel.configureBlocking(false);
+        String host = "localhost";
+        int port = 1100;
+        channel.connect(new InetSocketAddress(host, port));
         byte[] sendData = new byte[9999];
         byte[] receiveData = new byte[9999];
 
@@ -41,7 +46,7 @@ public class ClientMng {
                 }
                 else if(sentence.split(" ").length >= 2 && sentence.split(" ")[0].equals("update")){
                     UpdateByIdCommand ad = new UpdateByIdCommand();
-                    req = ad.doo(sentence, clientSocket, sendData, receiveData, IPAddress, port);
+                    req = ad.doo(sentence, channel, sendData, receiveData, host, port);
                     req.setResText(sentence + " " + req.getResText());
                 }
                 else {
@@ -54,25 +59,27 @@ public class ClientMng {
 
                 //sending
                 sendData = outputStream.toByteArray();
-                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-                clientSocket.send(sendPacket);
+                ByteBuffer buffer = ByteBuffer.wrap(sendData);
+                channel.write(buffer);
+                ByteBuffer responseBuffer = ByteBuffer.allocate(9999);
 
                 //give Answers
-                clientSocket.setSoTimeout(10000);
-                try {
-                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-                    clientSocket.receive(receivePacket);
-                    byte[] data = receivePacket.getData();
-                    ByteArrayInputStream in = new ByteArrayInputStream(data);
+                long startTime = System.currentTimeMillis();
+                responseBuffer.clear();
+                SocketAddress responder = channel.receive(responseBuffer);
+
+                if(responder != null){
+                    responseBuffer.flip();
+                    byte[] responseBytes = new byte[responseBuffer.remaining()];
+                    responseBuffer.get(responseBytes);
+                    ByteArrayInputStream in = new ByteArrayInputStream(responseBytes);
                     ObjectInputStream is = new ObjectInputStream(in);
-
                     Res request = (Res) is.readObject();
-
                     ///print a answer
                     String modifiedSentence = new String(request.getResText().getBytes(), 0, request.getResText().getBytes().length);
                     System.out.println(modifiedSentence);
-                } catch (SocketTimeoutException e) {
-                    System.out.println("Server not Answered!");
+                }else if(System.currentTimeMillis() - startTime > 10000){
+                    System.out.println("Server no response!");
                 }
             }
         }

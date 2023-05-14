@@ -11,16 +11,15 @@ import enums.Semester;
 import statics.Static;
 
 import java.io.*;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketTimeoutException;
+import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
 import java.util.Scanner;
 
 
 public class UpdateByIdCommand {
 
-    public Res doo(String s, DatagramSocket clientSocket, byte[] sendData, byte[] receiveData, InetAddress IPAddress, int port) throws IOException, ClassNotFoundException {
+    public Res doo(String s, DatagramChannel channel, byte[] sendData, byte[] receiveData, String IPAddress, int port) throws IOException, ClassNotFoundException, InterruptedException {
         Res res = null;
         String name = null;
         int x = 0;
@@ -43,28 +42,29 @@ public class UpdateByIdCommand {
 
             //sending
             sendData = outputStream.toByteArray();
-            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
-            clientSocket.send(sendPacket);
+            ByteBuffer buffer = ByteBuffer.wrap(sendData);
+            channel.write(buffer);
+            ByteBuffer responseBuffer = ByteBuffer.allocate(9999);
 
             //give Answers
-            clientSocket.setSoTimeout(10000);
-            try {
-                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-                clientSocket.receive(receivePacket);
-                byte[] data = receivePacket.getData();
-                ByteArrayInputStream in = new ByteArrayInputStream(data);
+            long startTime = System.currentTimeMillis();
+            responseBuffer.clear();
+            SocketAddress responder = channel.receive(responseBuffer);
+
+            if(responder != null){
+                responseBuffer.flip();
+                byte[] responseBytes = new byte[responseBuffer.remaining()];
+                responseBuffer.get(responseBytes);
+                ByteArrayInputStream in = new ByteArrayInputStream(responseBytes);
                 ObjectInputStream is = new ObjectInputStream(in);
-
                 Res request = (Res) is.readObject();
-
                 ///print a answer
                 if(request.isSuccess() == true){
                     b = true;
                 }
-            } catch (SocketTimeoutException e) {
-                System.out.println("Server not Answered!");
+            }else if(System.currentTimeMillis() - startTime > 10000){
+                System.out.println("Server no response!");
             }
-
         }
 
         if (b) {

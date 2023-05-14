@@ -16,30 +16,17 @@ public class ExecuteScriptCommand extends AbsCommand{
 
     @Override
     public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
-        String[] idS = args.split(" ");
-        String filename = idS[1];
-        CommandMang cmd = new CommandMang();
+        String[] allRequests = args.split("\n");
         String allRes = "";
+        CommandMang cmd = new CommandMang();
 
-        try {
-            Scanner sc = new Scanner(new File("Scripts/" + filename));
-            while(sc.hasNextLine()) {
-                String line = sc.nextLine();
-                if (line.split(" ").length >= 2 && line.split(" ")[0].equals("execute_script") && line.split(" ")[1].equals(filename)) {
-                    allRes = allRes + "Рекурсия!\n\n";
-                } else {
-                    try {
-                        allRes = allRes + cmd.mng(line, mySet).getResText() + "\n";
-                        Static.history.add(line.split(" ")[0]);
-                    } catch (Exception e) {
-                        continue;
-                    }
-                }
+        for(String tmp: allRequests){
+            if(!tmp.equals("execute_script")) {
+                allRes = allRes + cmd.mng(tmp, mySet).getResText();
             }
-            return new Res(allRes, true);
-        } catch (FileNotFoundException e) {
-            return new Res("Ошибка скрипт файла!\n", true);
         }
+
+        return new Res(allRes, true);
     }
 
     @Override

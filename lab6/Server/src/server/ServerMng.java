@@ -28,7 +28,7 @@ public class ServerMng {
         new Thread(() -> {mainProgram.savecmd(mySet);}).start();
 
         while (true) {
-            byte[] receiveData = new byte[2048];
+            byte[] receiveData = new byte[9999];
             byte[] sendData;
 
             //give

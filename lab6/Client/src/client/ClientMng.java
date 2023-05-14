@@ -2,6 +2,7 @@ package client;
 
 import ansAndRes.Res;
 import command.AddCommand;
+import command.ExecuteScriptCommand;
 import command.UpdateByIdCommand;
 
 import java.io.*;
@@ -16,7 +17,7 @@ public class ClientMng {
         DatagramSocket clientSocket = new DatagramSocket();
         InetAddress IPAddress = InetAddress.getByName("localhost");
         byte[] sendData;
-        byte[] receiveData = new byte[2048];
+        byte[] receiveData = new byte[9999];
 
         Scanner scanner = new Scanner(System.in);
         String sentence;
@@ -34,7 +35,9 @@ public class ClientMng {
                     req = ad.doo();
                     req.setResText("add " + req.getResText());
                 }else if(sentence.split(" ")[0].equals("execute_script")){
-
+                    ExecuteScriptCommand ex = new ExecuteScriptCommand();
+                    String allRequest = ex.doo(sentence);
+                    req = new Res("execute_script \n" + allRequest, true);
                 }
                 else if(sentence.split(" ")[0].equals("update")){
                     UpdateByIdCommand ad = new UpdateByIdCommand();

@@ -35,6 +35,7 @@ public class ServerMng {
             //give
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
             serverSocket.receive(receivePacket);
+
             byte[] data = receivePacket.getData();
             ByteArrayInputStream in = new ByteArrayInputStream(data);
             ObjectInputStream is = new ObjectInputStream(in);
@@ -72,8 +73,6 @@ public class ServerMng {
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
             serverSocket.send(sendPacket);
 
-            result = null;
-            request = null;
         }
     }
 }

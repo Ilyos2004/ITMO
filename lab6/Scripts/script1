@@ -1,4 +1,5 @@
 show
 info
 save
+execute_script script2
 exit

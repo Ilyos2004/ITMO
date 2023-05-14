@@ -5,6 +5,7 @@ import classes.StudyGroup;
 import statics.Static;
 
 import java.util.LinkedHashSet;
+import java.util.stream.Stream;
 
 public class AvrgCommand extends AbsCommand{
     public AvrgCommand(String name) {
@@ -16,9 +17,8 @@ public class AvrgCommand extends AbsCommand{
         Float ans = 0f;
         String allRes = "";
         if(!mySet.isEmpty()) {
-            for (StudyGroup s : mySet) {
-                ans = ans + s.getStudentsCount();
-            }
+            //Stream Api
+            ans = (float) mySet.stream().mapToInt(StudyGroup::getStudentsCount).sum();
         }else{
             return new Res("Коллекция пуста!\n", true);
         }

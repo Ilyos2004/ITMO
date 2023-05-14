@@ -13,11 +13,10 @@ public class HelpCommand extends AbsCommand {
 
     @Override
     public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
-        String allRes = "";
-        for(Command c: Static.listOfCommands.values()){
-            allRes = allRes + c.des() + "\n";
-        }
-        return new Res(allRes, true);
+        StringBuilder allRes = new StringBuilder();
+        //Stream Api
+        Static.listOfCommands.values().stream().map(p -> p.des() + "\n").forEach(allRes::append);
+        return new Res(allRes.toString(), true);
     }
 
     @Override

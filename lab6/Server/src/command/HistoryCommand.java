@@ -14,6 +14,7 @@ public class HistoryCommand extends AbsCommand{
     @Override
     public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
         String allRes = "";
+
         if(Static.history.size() >= 12) {
             for (int i = Static.history.size() - 12; i < Static.history.size(); i++) {
                 allRes = allRes + (Static.history.get(i)) + "\n";

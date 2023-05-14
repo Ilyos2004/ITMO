@@ -15,13 +15,13 @@ public class RemoveIdCommand extends AbsCommand{
     public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
         String[] idS = args.split(" ");
         int id = Integer.parseInt(idS[1]);
-        for(StudyGroup std: mySet){
-            if(std.getId() == id){
-                mySet.remove(std);
-                return new Res("Объект удалено!\n", true);
-            }
+
+        try {
+            mySet.stream().filter(p -> p.getId() == id).forEach(mySet::remove);
+            return new Res("Объект удалено!\n", true);
+        }catch (Exception e) {
+            return new Res("Нету такого объекта!\n", true);
         }
-        return new Res("Нету такого объекта!\n", true);
     }
 
     @Override

@@ -29,10 +29,9 @@ public class UpdateByIdCommand extends AbsCommand{
 
         String[] idS = args.split(" ");
         int id = Integer.parseInt(idS[1]);
-        for(StudyGroup std: mySet){
-            if(std.getId() == id){
-                b = true;
-            }
+        //Stream Api
+        if(mySet.stream().filter(p -> p.getId() == id).count() >= 1) {
+            b = true;
         }
 
         if(b) {

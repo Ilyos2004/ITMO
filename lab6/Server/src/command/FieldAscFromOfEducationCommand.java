@@ -14,13 +14,12 @@ public class FieldAscFromOfEducationCommand extends AbsCommand{
     @Override
     public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
         TreeMap<String, String> mpTmp = new TreeMap<>();
-        String allRes = "";
+        StringBuilder allRes =new StringBuilder();
 
         List<String> s = new ArrayList<>();
         if (!mySet.isEmpty()) {
-            for (StudyGroup ss : mySet) {
-                s.add(ss.getFormOfEducation().name());
-            }
+            //Stream Api
+            mySet.stream().map(p -> p.getFormOfEducation().name()).forEach(s::add);
         }else{
             return new Res("Коллекция пуста!\n", true);
         }
@@ -33,10 +32,9 @@ public class FieldAscFromOfEducationCommand extends AbsCommand{
             }
         }
 
-        for(String t: mpTmp.keySet()){
-            allRes = allRes + t + " " + mpTmp.get(t) + "\n";
-        }
-        return new Res(allRes, true);
+        //Stream Api
+        mpTmp.keySet().stream().map(p -> p + " " + mpTmp.get(p) + "\n").forEach(allRes::append);
+        return new Res(allRes.toString(), true);
     }
 
     @Override

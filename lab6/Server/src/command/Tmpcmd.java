@@ -16,10 +16,9 @@ public class Tmpcmd {
         boolean b = false;
         String[] idS = sentence.split(" ");
         int id = Integer.parseInt(idS[1]);
-        for(StudyGroup std: mySet){
-            if(std.getId() == id){
-                b = true;
-            }
+
+        if(mySet.stream().map(p -> p.getId() == id).count() == 1){
+            b = true;
         }
 
         Res newRes = new Res(sentence, b);

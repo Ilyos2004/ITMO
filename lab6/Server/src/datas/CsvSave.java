@@ -12,9 +12,7 @@ public class CsvSave {
         try {
             PrintWriter output = new PrintWriter(new FileWriter(Static.filename.toString()), true);
             output.println("id,name,coordinate.x,coordinate.y,creationDate,studentsCount,formOfEducation,semesterEnum,groupAdmin.name,groupAdmin.weight,groupAdmin.eyeColor,groupAdmin.hairColor,groupAdmin.nationality");
-            for(StudyGroup s: mySet) {
-                output.print(s.toStringCSV() + "\n");
-            }
+            mySet.stream().map(p -> p.toStringCSV() + "\n").forEach(output::print);
             output.close();
             return true;
         }

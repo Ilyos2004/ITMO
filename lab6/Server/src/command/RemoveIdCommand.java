@@ -16,10 +16,10 @@ public class RemoveIdCommand extends AbsCommand{
         String[] idS = args.split(" ");
         int id = Integer.parseInt(idS[1]);
 
-        try {
+        if(mySet.stream().filter(p -> p.getId() == id).count() == 1) {
             mySet.stream().filter(p -> p.getId() == id).forEach(mySet::remove);
             return new Res("Объект удалено!\n", true);
-        }catch (Exception e) {
+        }else {
             return new Res("Нету такого объекта!\n", true);
         }
     }

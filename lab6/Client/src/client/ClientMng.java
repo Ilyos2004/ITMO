@@ -2,6 +2,7 @@ package client;
 
 import ansAndRes.Res;
 import command.AddCommand;
+import command.UpdateByIdCommand;
 
 import java.io.*;
 import java.net.*;
@@ -32,7 +33,12 @@ public class ClientMng {
                     AddCommand ad = new AddCommand();
                     req = ad.doo();
                     req.setResText("add " + req.getResText());
-                }else {
+                }else if(sentence.split(" ")[0].equals("update")){
+                    UpdateByIdCommand ad = new UpdateByIdCommand();
+                    req = ad.doo();
+                    req.setResText(sentence + " " + req.getResText());
+                }
+                else {
                     //ser
                     req = new Res(sentence.toString(), true);
                 }

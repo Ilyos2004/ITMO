@@ -19,27 +19,26 @@ public class ExecuteScriptCommand extends AbsCommand{
         String[] idS = args.split(" ");
         String filename = idS[1];
         CommandMang cmd = new CommandMang();
-        Res res = null;
+        String allRes = "";
 
         try {
             Scanner sc = new Scanner(new File("Scripts/" + filename));
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine()) {
                 String line = sc.nextLine();
-                if(line.equals("exit")){
-                    return res;
-                }else {
+                if (line.split(" ").length >= 2 && line.split(" ")[0].equals("execute_script") && line.split(" ")[1].equals(filename)) {
+                    allRes = allRes + "Рекурсия!\n\n";
+                } else {
                     try {
-                        res = cmd.mng(line, mySet);
+                        allRes = allRes + cmd.mng(line, mySet).getResText() + "\n";
                         Static.history.add(line.split(" ")[0]);
                     } catch (Exception e) {
                         continue;
                     }
                 }
             }
-            return res;
+            return new Res(allRes, true);
         } catch (FileNotFoundException e) {
-            Static.txt("Ошибка скрипт файла!");
-            return res;
+            return new Res("Ошибка скрипт файла!\n", true);
         }
     }
 

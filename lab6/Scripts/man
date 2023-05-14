@@ -1,0 +1,6 @@
+info
+execute_script man
+save
+info
+execute_script man
+show

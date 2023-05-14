@@ -1,0 +1,3 @@
+id,name,coordinate.x,coordinate.y,creationDate,studentsCount,formOfEducation,semesterEnum,groupAdmin.name,groupAdmin.weight,groupAdmin.eyeColor,groupAdmin.hairColor,groupAdmin.nationality
+"12","P313","4","4","14.05.2023 04:54:12","54534","DISTANCE_EDUCATION","SIXTH","fdewf","45.0","BLUE","BLACK","JAPAN"
+"23","dgdfg","4","5","14.05.2023 08:36:32","45","DISTANCE_EDUCATION","SIXTH","rgreg","546.0","BLUE","BLUE","JAPAN"

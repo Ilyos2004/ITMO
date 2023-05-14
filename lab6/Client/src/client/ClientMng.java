@@ -33,7 +33,10 @@ public class ClientMng {
                     AddCommand ad = new AddCommand();
                     req = ad.doo();
                     req.setResText("add " + req.getResText());
-                }else if(sentence.split(" ")[0].equals("update")){
+                }else if(sentence.split(" ")[0].equals("execute_script")){
+
+                }
+                else if(sentence.split(" ")[0].equals("update")){
                     UpdateByIdCommand ad = new UpdateByIdCommand();
                     req = ad.doo();
                     req.setResText(sentence + " " + req.getResText());

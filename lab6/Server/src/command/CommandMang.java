@@ -9,6 +9,10 @@ import java.util.LinkedHashSet;
 public class CommandMang{
     public Res mng(String args, LinkedHashSet<StudyGroup> mySet){
         String[] aaa = args.split(" ");
-        return Static.listOfCommands.get(aaa[0]).doo(args, mySet);
+        try {
+            return Static.listOfCommands.get(aaa[0]).doo(args, mySet);
+        }catch (Exception e){
+            return null;
+        }
     }
 }

@@ -6,8 +6,12 @@ import statics.Static;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ExecuteScriptCommand extends AbsCommand{
     public ExecuteScriptCommand(String name) {
@@ -16,16 +20,29 @@ public class ExecuteScriptCommand extends AbsCommand{
 
     @Override
     public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
-        String[] allRequests = args.split("\n");
         String allRes = "";
         CommandMang cmd = new CommandMang();
 
-        for(String tmp: allRequests){
-            if(!tmp.equals("execute_script")) {
-                allRes = allRes + cmd.mng(tmp, mySet).getResText();
-            }
+        Pattern pt = Pattern.compile("\"([^\"]*)\"");
+        Matcher mt = pt.matcher(args);
+        List<String> dt = new ArrayList<>();
+        while(mt.find()){
+            dt.add(mt.group(1));
         }
 
+        for (String tmp: dt) {
+            if(!tmp.equals("Рекурсия!") && !tmp.equals("execute_script")) {
+                try {
+                    allRes = allRes + cmd.mng(tmp, mySet).getResText() + "\n";
+                    Static.history.add(tmp.split(" ")[0]);
+                }catch (Exception e){
+                    allRes = allRes + "Ошибка команды!\n\n";
+                }
+            }
+            if(tmp.equals("Рекурсия!")){
+                allRes = allRes + "Рекурсия!\n\n";
+            }
+        }
         return new Res(allRes, true);
     }
 

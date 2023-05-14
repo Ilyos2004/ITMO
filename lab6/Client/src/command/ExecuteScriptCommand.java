@@ -22,13 +22,13 @@ public class ExecuteScriptCommand{
             while(sc.hasNextLine()) {
                 String line = sc.nextLine();
                 if (line.split(" ").length >= 2 && line.split(" ")[0].equals("execute_script") && line.split(" ")[1].equals(filename)) {
-                    allRes = allRes + "Рекурсия!\n";
+                    allRes = allRes + "\"Рекурсия!\",";
                 } else if(line.split(" ").length >= 2 && line.split(" ")[0].equals("execute_script")){
-                    allRes = allRes + ex.doo(line) + "\n";
+                    allRes = allRes + ex.doo(line);
                 }
-                else {
+                else if (line.length() != 0) {
                     try {
-                        allRes = allRes + line + "\n";
+                        allRes = allRes + "\"" + line + "\",";
                         Static.history.add(line.split(" ")[0]);
                     } catch (Exception e) {
                         continue;

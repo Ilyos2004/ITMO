@@ -49,10 +49,10 @@ public class ServerMng {
 
             //MainProgramController
             Res result = null;
-            try {
-                result = cmd.mng(request.getResText(), mySet);
+            result = cmd.mng(request.getResText(), mySet);
+            if (result != null) {
                 Static.history.add(request.getResText().split(" ")[0]);
-            } catch (Exception e) {
+            }else{
                 result = new Res("Команда введена не правильно", false);
             }
 

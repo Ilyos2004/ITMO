@@ -37,7 +37,7 @@ public class ClientMng {
                 }else if(sentence.split(" ")[0].equals("execute_script")){
                     ExecuteScriptCommand ex = new ExecuteScriptCommand();
                     String allRequest = ex.doo(sentence);
-                    req = new Res("execute_script \n" + allRequest, true);
+                    req = new Res("execute_script " + allRequest, true);
                 }
                 else if(sentence.split(" ")[0].equals("update")){
                     UpdateByIdCommand ad = new UpdateByIdCommand();

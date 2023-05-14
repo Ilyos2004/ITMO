@@ -4,6 +4,7 @@ import ansAndRes.Res;
 import classes.StudyGroup;
 import command.CommandMang;
 import command.SaveCommand;
+import command.Tmpcmd;
 import datas.ReadCsv;
 import mainProgram.Main;
 import statics.Static;
@@ -29,7 +30,7 @@ public class ServerMng {
 
         while (true) {
             byte[] receiveData = new byte[9999];
-            byte[] sendData;
+            byte[] sendData = new byte[9999];
 
             //give
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -49,11 +50,17 @@ public class ServerMng {
 
             //MainProgramController
             Res result = null;
-            result = cmd.mng(request.getResText(), mySet);
-            if (result != null) {
-                Static.history.add(request.getResText().split(" ")[0]);
-            }else{
-                result = new Res("Команда введена не правильно", false);
+            if(request.getResText().split(" ")[0].equals("update") && request.getResText().split(" ")[2].equals("tmp")){
+                Tmpcmd tmp = new Tmpcmd();
+                result = tmp.updateId(request, serverSocket, mySet, receiveData, IPAddress, port, sendData);
+                result = cmd.mng(result.getResText(), mySet);
+            }else {
+                result = cmd.mng(request.getResText(), mySet);
+                if (result != null) {
+                    Static.history.add(request.getResText().split(" ")[0]);
+                } else {
+                    result = new Res("Команда введена не правильно", false);
+                }
             }
 
             //send a Answer

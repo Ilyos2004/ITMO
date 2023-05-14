@@ -16,7 +16,7 @@ public class ClientMng {
 
         DatagramSocket clientSocket = new DatagramSocket();
         InetAddress IPAddress = InetAddress.getByName("localhost");
-        byte[] sendData;
+        byte[] sendData = new byte[9999];
         byte[] receiveData = new byte[9999];
 
         Scanner scanner = new Scanner(System.in);
@@ -39,9 +39,9 @@ public class ClientMng {
                     String allRequest = ex.doo(sentence);
                     req = new Res("execute_script " + allRequest, true);
                 }
-                else if(sentence.split(" ")[0].equals("update")){
+                else if(sentence.split(" ").length >= 2 && sentence.split(" ")[0].equals("update")){
                     UpdateByIdCommand ad = new UpdateByIdCommand();
-                    req = ad.doo();
+                    req = ad.doo(sentence, clientSocket, sendData, receiveData, IPAddress, port);
                     req.setResText(sentence + " " + req.getResText());
                 }
                 else {

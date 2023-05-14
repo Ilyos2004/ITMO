@@ -15,8 +15,12 @@ public class AvrgCommand extends AbsCommand{
     public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
         Float ans = 0f;
         String allRes = "";
-        for(StudyGroup s: mySet){
-            ans = ans + s.getStudentsCount();
+        if(!mySet.isEmpty()) {
+            for (StudyGroup s : mySet) {
+                ans = ans + s.getStudentsCount();
+            }
+        }else{
+            return new Res("Коллекция пуста!\n", true);
         }
         try {
             ans = ans / mySet.size();

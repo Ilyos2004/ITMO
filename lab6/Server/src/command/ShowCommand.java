@@ -14,8 +14,12 @@ public class ShowCommand extends AbsCommand{
     @Override
     public Res doo(String s, LinkedHashSet<StudyGroup> mySet){
         String allRes = "";
-        for(StudyGroup std: mySet){
-            allRes = allRes + std.toString() + "\n";
+        if (!mySet.isEmpty()) {
+            for (StudyGroup std : mySet) {
+                allRes = allRes + std.toString() + "\n";
+            }
+        }else{
+            allRes = allRes + "Коллекция Пуста!\n";
         }
         return new Res(allRes, true);
     }

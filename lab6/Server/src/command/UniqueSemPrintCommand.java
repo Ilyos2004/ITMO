@@ -14,8 +14,12 @@ public class UniqueSemPrintCommand extends AbsCommand{
     @Override
     public Res doo(String args, LinkedHashSet<StudyGroup> mySet){
         String allRes = "";
-        for(StudyGroup std: mySet){
-            allRes = allRes + (std.getName() + " " + std.getSemesterEnum().name()) + "\n";
+        if (!mySet.isEmpty()) {
+            for (StudyGroup std : mySet) {
+                allRes = allRes + (std.getName() + " " + std.getSemesterEnum().name()) + "\n";
+            }
+        }else{
+            allRes = allRes + "Коллекция пуста!\n";
         }
         return new Res(allRes, true);
     }

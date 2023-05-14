@@ -17,8 +17,12 @@ public class FieldAscFromOfEducationCommand extends AbsCommand{
         String allRes = "";
 
         List<String> s = new ArrayList<>();
-        for(StudyGroup ss: mySet){
-            s.add(ss.getFormOfEducation().name());
+        if (!mySet.isEmpty()) {
+            for (StudyGroup ss : mySet) {
+                s.add(ss.getFormOfEducation().name());
+            }
+        }else{
+            return new Res("Коллекция пуста!\n", true);
         }
         Collections.sort(s);
         for(String tmp: s){

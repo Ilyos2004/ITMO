@@ -11,7 +11,7 @@ public class CommandMang{
         String[] aaa = args.split(" ");
         try {
             return Static.listOfCommands.get(aaa[0]).doo(args, mySet);
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
